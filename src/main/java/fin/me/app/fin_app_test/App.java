@@ -1,5 +1,6 @@
 package fin.me.app.fin_app_test;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -10,25 +11,21 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+// import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )throws IOException
-    {
+public class App {
+    @SuppressWarnings("deprecation")
+    public static void main(String[] args) throws IOException {
         // Load driver
         WebDriverManager.chromedriver().setup();
 
         // Setup configuration
         ChromeOptions chromeOptions = new ChromeOptions();
-//        chromeOptions.addArguments("--headless=new"); // Use the new headless mode
+        chromeOptions.addArguments("--headless=new"); // Use the new headless mode
         chromeOptions.addArguments("--disable-gpu"); // Disable GPU for headless mode
         chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model, necessary for Jenkins
         chromeOptions.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
@@ -36,11 +33,10 @@ public class App
         chromeOptions.addArguments("--disable-extensions"); // Disable extensions
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        
-        
+
         try {
             System.out.println("Script Executing");
-            driver.get("http://54.82.66.158:8081/contact.html");
+            driver.get("http://18.208.192.174:8081/contact.html");
 
             // Load application
             WebElement nameField = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div/input[1]"));
@@ -52,17 +48,15 @@ public class App
             WebElement emailField = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div/input[3]"));
             emailField.sendKeys("ss123@gamil.com");
 
-            WebElement messageField = driver.findElement(By.xpath("//*[@id=\"comment\"]"));
-            messageField.sendKeys("Good");
-            
-            
-            
+            WebElement messageField = driver.findElement(By.id("comment"));
+            messageField.sendKeys("Excellent");
+
             // Submit button to form
             WebElement submitButton = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div/div"));
             submitButton.click();
 
             // Get response
-            String response = driver.findElement(By.xpath("//*[@id=\"message\"]")).getText();
+            String response = driver.findElement(By.id("message")).getText();
             System.out.println(response);
 
             // Take screenshot
